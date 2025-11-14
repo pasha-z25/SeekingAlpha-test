@@ -5,6 +5,11 @@ import type {
   QuantRankingsType,
   RatingsSummaryType,
 } from '@/utils/types';
+import {
+  getFactorGradesTable,
+  getRankingCardContent,
+  getRatingsSummaryTable,
+} from './content-helpers';
 
 import Card from '@/components/Card';
 
@@ -19,17 +24,26 @@ export default function Home({
   factorGrades,
   ratingsSummary,
 }: IHomeProps) {
-  console.log('Home page view', {
-    quantRanking,
-    factorGrades,
-    ratingsSummary,
-  });
-
   return (
     <section>
-      <h1>Home Page</h1>
-      <Card title="Card title">Some card content</Card>
-      <Card>Another card content</Card>
+      <div className="container">
+        <h1 className="mb-4 text-primary">Home Page</h1>
+        <div className="grid gap-4 items-start md:grid-cols-2 lg:grid-cols-3">
+          {ratingsSummary && (
+            <Card title="Ratings Summary">
+              {getRatingsSummaryTable(ratingsSummary)}
+            </Card>
+          )}
+          {factorGrades && (
+            <Card title="Factor Grades">
+              {getFactorGradesTable(factorGrades)}
+            </Card>
+          )}
+          <Card title="Quant Ranking">
+            {getRankingCardContent(quantRanking)}
+          </Card>
+        </div>
+      </div>
     </section>
   );
 }

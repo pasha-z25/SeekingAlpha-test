@@ -151,3 +151,13 @@ export function combineFactorGrades(
 
   return result;
 }
+
+// Function to convert key to display name (SA_Analysts -> SA Analysts)
+export const formatSourceName = (key: string): string => {
+  return key.replace(/_/g, ' '); // Replace underscores with spaces
+};
+
+// Function for formatting score (always 2 decimal places)
+export const formatScore = (score: number): string => {
+  return score.toFixed(2);
+};

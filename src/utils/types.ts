@@ -29,14 +29,12 @@ export interface FactorHistory {
 
 export type FactorGradesTable = Record<string, FactorHistory>;
 
-export type RatingType = {
+export type RatingSource = {
   rating: string;
   score: number;
 };
 
-export type RatingsSummaryType = {
-  [key: string]: RatingType;
-};
+export type RatingsSummaryType = Record<string, RatingSource>;
 
 export type RankingType = {
   rank: number;
