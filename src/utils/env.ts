@@ -1,0 +1,12 @@
+import {
+  BASE_URL as STATIC_BASE_URL,
+  EXTERNAL_API_URL as STATIC_EXTERNAL_API_URL,
+  COMPANY_SITE as STATIC_COMPANY_SITE,
+} from './constants';
+
+export const BASE_URL = process.env.BASE_URL || STATIC_BASE_URL;
+
+export const EXTERNAL_API_URL =
+  process.env.EXTERNAL_API_URL || STATIC_EXTERNAL_API_URL;
+
+export const COMPANY_SITE = process.env.COMPANY_SITE || STATIC_COMPANY_SITE;
