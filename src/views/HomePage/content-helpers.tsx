@@ -48,7 +48,9 @@ export const getRankingCardContent = (data: QuantRankingsType) => (
       </div>
     </div>
     <p className="text-primary font-bold mt-4">
-      <a href={COMPANY_SITE}>Quant Ratings Beat The Market &raquo;</a>
+      <a href={COMPANY_SITE} target="_blank" rel="noopener noreferrer">
+        Quant Ratings Beat The Market &raquo;
+      </a>
     </p>
   </>
 );

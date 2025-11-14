@@ -11,27 +11,31 @@ import {
 import HomePage from '@/views/HomePage';
 
 export default async function Home() {
-  const user = await getData<{ premium: boolean }>(
-    `${EXTERNAL_API_URL}${API_ENDPOINTS.user}`,
-  );
-  const quantRanking = await getData<QuantRankingsType>(
-    `${EXTERNAL_API_URL}${API_ENDPOINTS.ranking}`,
-  );
+  const [userRes, quantRes] = await Promise.all([
+    getData<{ premium: boolean }>(`${EXTERNAL_API_URL}${API_ENDPOINTS.user}`),
+    getData<QuantRankingsType>(`${EXTERNAL_API_URL}${API_ENDPOINTS.ranking}`),
+  ]);
+  const user = userRes;
+  const quantRanking = quantRes;
 
-  const ratingsSummary = user.premium
-    ? await getData<RatingsSummaryType>(
+  let ratingsSummary: RatingsSummaryType | null = null;
+  let factorGrades: FactorGradesTable | null = null;
+
+  if (user.premium) {
+    [ratingsSummary, factorGrades] = await Promise.all([
+      getData<RatingsSummaryType>(
         `${EXTERNAL_API_URL}${API_ENDPOINTS.ratings}`,
-      )
-    : null;
-  const factorGrades = user.premium
-    ? await getData<FactorGradesTable>(`${BASE_URL}${INTERNAL_API_URL}`)
-    : null;
+      ),
+      getData<FactorGradesTable>(`${BASE_URL}${INTERNAL_API_URL}`),
+    ]);
+  }
 
   return (
     <HomePage
       quantRanking={quantRanking}
       factorGrades={factorGrades}
       ratingsSummary={ratingsSummary}
+      isPremium={user.premium}
     />
   );
 }
